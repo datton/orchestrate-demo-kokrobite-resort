@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meine Reservierungen</title>
+<meta name="description" content="Deine Reservierungen im Demo-Resort in Kokrobite: ansehen, als Kalenderdatei laden oder stornieren.">
+<style>@view-transition { navigation: auto; }</style>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="../css/meine.css">
+<script src="../js/nav.js" defer></script>
+<script src="../js/motion.js" defer></script>
+<script src="../js/app.js" defer></script>
+<script src="../js/resort-data.js" defer></script>
+<script src="../js/de.js" defer></script>
+<script src="../js/tools.js" defer></script>
+</head>
+<body>
+<main id="main" class="mr">
+  <section class="band">
+    <div class="mr__wrap">
+      <p class="mr__eyebrow" data-reveal>Dein Aufenthalt</p>
+      <h1 class="mr__title" data-words>Meine Reservierungen</h1>
+      <p class="mr__lead" data-reveal>Hier findest du alles, was du in diesem Browser reserviert hast. Du kannst jede Reservierung als Kalenderdatei speichern oder stornieren.</p>
+      <p data-reveal><span class="demo-label">Fiktives Hotel · Demo</span></p>
+      <div id="mr-root" aria-live="polite"><p>Reservierungen werden geladen …</p></div>
+      <p class="mr__status" id="mr-status" role="status"></p>
+      <p class="mr__foot">Demo: Die Reservierungen bleiben nur in diesem Browser gespeichert. Es wird nichts gesendet und keine Zahlung genommen.</p>
+    </div>
+  </section>
+</main>
+<script>
+(function () {
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function roomName(id) {
+    var rooms = (window.KR_DATA && KR_DATA.rooms) || [];
+    for (var i = 0; i < rooms.length; i++) if (rooms[i].id === id) return rooms[i].name;
+    return id;
+  }
+  function fmtDate(iso) { return window.KR_DE ? KR_DE.date(iso) : iso; }
+  function fmtMoney(n) { return window.KR_DE ? KR_DE.money(n) : n + ' €'; }
+  function fmtNights(n) { return window.KR_DE ? KR_DE.nights(n) : n + ' Nächte'; }
+  function say(t) { var s = document.getElementById('mr-status'); if (s) s.textContent = t || ''; }
+
+  function render() {
+    var root = document.getElementById('mr-root');
+    if (!window.KR_RES) { root.innerHTML = '<p>Die Reservierungen konnten nicht geladen werden. Bitte lade die Seite neu.</p>'; return; }
+    var list = KR_RES.list() || [];
+    if (!list.length) {
+      root.innerHTML = '<div class="mr__empty"><h2>Noch keine Reservierung</h2><p>Sobald du ein Zimmer reservierst, erscheint es hier. Such dir dein Zimmer und deine Reisedaten aus.</p><a class="mr__btn mr__btn--solid" href="reservierung.html">Zur Reservierung</a></div>';
+      return;
+    }
+    root.innerHTML = '<ul class="mr__list">' + list.map(function (r) {
+      return '<li class="mr__card" data-ref="' + esc(r.ref) + '">' +
+        '<p class="mr__ref">' + esc(r.ref) + '</p>' +
+        '<h2 class="mr__room">' + esc(roomName(r.room)) + '</h2>' +
+        '<dl class="mr__dl">' +
+          '<div><dt>Anreise</dt><dd>' + esc(fmtDate(r['in'])) + '</dd></div>' +
+          '<div><dt>Abreise</dt><dd>' + esc(fmtDate(r.out)) + '</dd></div>' +
+          '<div><dt>Dauer</dt><dd>' + esc(fmtNights(r.nights)) + '</dd></div>' +
+          '<div><dt>Gäste</dt><dd>' + esc(r.guests) + '</dd></div>' +
+          '<div><dt>Gesamt</dt><dd>' + esc(fmtMoney(r.total)) + '</dd></div>' +
+        '</dl>' +
+        (r.note ? '<p class="mr__note">Notiz: ' + esc(r.note) + '</p>' : '') +
+        '<div class="mr__actions">' +
+          '<button type="button" class="mr__btn mr__btn--solid" data-act="ics" data-ref="' + esc(r.ref) + '">Kalenderdatei (.ics)</button>' +
+          '<button type="button" class="mr__btn mr__btn--danger" data-act="ask" data-ref="' + esc(r.ref) + '">Stornieren</button>' +
+        '</div></li>';
+    }).join('') + '</ul>';
+  }
+
+  function find(ref) { var l = KR_RES.list() || []; for (var i = 0; i < l.length; i++) if (l[i].ref === ref) return l[i]; return null; }
+
+  function download(r) {
+    var data = KR_RES.ics(r);
+    var blob = data instanceof Blob ? data : new Blob([data], { type: 'text/calendar;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = r.ref + '.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+    say('Kalenderdatei für ' + r.ref + ' wurde gespeichert.');
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-act]');
+    if (!b || !window.KR_RES) return;
+    var ref = b.getAttribute('data-ref'), act = b.getAttribute('data-act'), card = b.closest('.mr__card');
+    if (act === 'ics') { var r = find(ref); if (r) download(r); }
+    else if (act === 'ask') {
+      if (card.querySelector('.mr__confirm')) return;
+      var box = document.createElement('div'); box.className = 'mr__confirm'; box.setAttribute('role', 'alertdialog'); box.setAttribute('aria-label', 'Stornierung bestätigen');
+      box.innerHTML = '<p>Reservierung ' + esc(ref) + ' wirklich stornieren?</p><button type="button" class="mr__btn mr__btn--solid" data-act="yes" data-ref="' + esc(ref) + '">Ja, stornieren</button><button type="button" class="mr__btn" data-act="no" data-ref="' + esc(ref) + '">Behalten</button>';
+      card.appendChild(box); box.querySelector('[data-act="no"]').focus();
+    } else if (act === 'no') { var c = card.querySelector('.mr__confirm'); if (c) c.remove(); card.querySelector('[data-act="ask"]').focus(); }
+    else if (act === 'yes') { KR_RES.remove(ref); render(); say('Reservierung ' + ref + ' wurde storniert.'); var h = document.querySelector('.mr__title'); if (h) { h.setAttribute('tabindex', '-1'); h.focus(); } }
+  });
+
+  function start() { render(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { window.addEventListener('load', start); });
+  else if (document.readyState === 'complete') start(); else window.addEventListener('load', start);
+})();
+</script>
+</body>
+</html>
