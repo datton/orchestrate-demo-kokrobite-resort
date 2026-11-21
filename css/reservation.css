@@ -1,14 +1,14 @@
 .res__wrap { max-width: 1100px; margin-inline: auto; }
 .res h1 { font-size: clamp(2.4rem, 7vw, 4.5rem); letter-spacing: -.03em; line-height: 1.05; margin: .6rem 0 .5rem; }
 .res__lead { max-width: 60ch; margin: 0 0 2rem; opacity: .85; }
-.res__grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; align-items: start; }
-@media (min-width: 900px) { .res__grid { grid-template-columns: 1.4fr 1fr; } .res__summary { position: sticky; top: 5rem; } }
+.res__grid { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 900px) { .res__grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); } .res__summary { position: sticky; top: 5rem; } }
 .res__card { background: var(--surface, #fff); color: var(--text, #111); border-radius: 24px; padding: clamp(1.2rem, 3vw, 2rem); box-shadow: 0 2px 4px rgba(0,0,0,.05), 0 14px 36px rgba(0,0,0,.09); }
 .res h2 { font-size: 1.3rem; margin: 1.6rem 0 .5rem; }
 .res__card > h2:first-child, .res__summary h2 { margin-top: 0; }
-.res__field { display: grid; gap: .35rem; margin-block: 1rem; }
+.res__field { display: grid; grid-template-columns: minmax(0, 1fr); gap: .35rem; margin-block: 1rem; }
 .res__field label { font-weight: 600; }
-.res__field input, .res__field select, .res__field textarea { font: inherit; min-height: 44px; padding: .7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(127,127,127,.5); background: var(--surface, #fff); color: inherit; }
+.res__field input, .res__field select, .res__field textarea { max-width: 100%; box-sizing: border-box; font: inherit; min-height: 44px; padding: .7rem 1rem; border-radius: 14px; border: 1.5px solid rgba(127,127,127,.5); background: var(--surface, #fff); color: inherit; }
 .res__field input:focus-visible, .res__field select:focus-visible, .res__field textarea:focus-visible { outline: 3px solid var(--focus, #1a56db); outline-offset: 1px; }
 .res__hint { font-size: .9rem; opacity: .8; margin: .3rem 0; max-width: 65ch; }
 .res__error { color: var(--danger, #b00020); font-size: .92rem; font-weight: 600; margin: .3rem 0; }
