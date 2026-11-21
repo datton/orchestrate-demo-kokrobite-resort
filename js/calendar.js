@@ -10,6 +10,8 @@
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function iso(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
   function parse(s) { var p = String(s).slice(0, 10).split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  // A real calendar date written YYYY-MM-DD, nothing else (a bad value in the address must never reach a loop).
+  function validISO(s) { if (!/^\d{4}-\d{2}-\d{2}$/.test(String(s))) return false; var d = parse(s); return !isNaN(d) && iso(d) === s; }
   function addDays(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
   function today() { var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
   function nightsBetween(a, b) { return Math.round((parse(b) - parse(a)) / 864e5); }
@@ -49,7 +51,11 @@
     function isPast(d) { return d < t0; }
     function blocked(d) { return isPast(d) || isBooked(iso(d)); }
     // Abreisetag: der Tag selbst darf belegt sein, wenn alle Nächte davor frei sind.
-    function spansBooked(a, b) { for (var d = parse(a); iso(d) < b; d = addDays(d, 1)) if (blocked(d)) return true; return false; }
+    function spansBooked(a, b) {
+      if (!validISO(a) || !validISO(b)) return true;
+      var n = 0; for (var d = parse(a); iso(d) < b; d = addDays(d, 1)) { if (blocked(d)) return true; if (++n > 800) return true; }
+      return false;
+    }
     function canCheckout(s) { return pending && s > pending && !spansBooked(pending, s); }
 
     function say() {
@@ -133,7 +139,7 @@
       getRange: function () { return range ? { in: range.in, out: range.out } : null; },
       setBooked: function (id2) { if (id2 != null) roomId = id2; booked = bookedSet(roomId); range = null; pending = null; draw(false); emit(); },
       setRange: function (r) {
-        if (r && r.in && r.out && r.out > r.in && r.in >= iso(t0) && !spansBooked(r.in, r.out)) {
+        if (r && validISO(r.in) && validISO(r.out) && r.out > r.in && r.in >= iso(t0) && !spansBooked(r.in, r.out)) {
           range = { in: r.in, out: r.out }; pending = null; focus = r.in; view = new Date(parse(r.in).getFullYear(), parse(r.in).getMonth(), 1); draw(false); emit(); return true;
         }
         return false;
