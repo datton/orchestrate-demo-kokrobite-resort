@@ -1,0 +1,28 @@
+/* Bestätigung nach der Zahlung (Senior Developer 4). Colours from tokens.css. */
+.ord { padding-block: clamp(4rem, 10vw, 8rem); }
+.ord__wrap { max-width: 52rem; margin-inline: auto; }
+.ord__eyebrow { margin: 0 0 .75rem; font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--accent, #c2410c); }
+.ord__title { margin: 0 0 1.25rem; font-size: clamp(2.2rem, 6.5vw, 4.5rem); line-height: 1.02; letter-spacing: -.03em; }
+.ord__muted { max-width: 65ch; opacity: .85; }
+.ord__ref { display: inline-flex; flex-direction: column; margin: .25rem 0 1.5rem; padding: 1rem 1.5rem; border-radius: 1.25rem; background: var(--surface, rgba(127,127,127,.12)); box-shadow: 0 8px 28px rgba(0,0,0,.08); }
+.ord__ref small { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+.ord__ref strong { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: clamp(1.8rem, 6vw, 3rem); letter-spacing: .04em; }
+.ord__card { margin: 0 0 1.25rem; padding: 1.25rem 1.5rem; border-radius: 1.25rem; background: var(--surface, rgba(127,127,127,.12)); box-shadow: 0 6px 22px rgba(0,0,0,.07); }
+.ord__card h2 { margin: 0 0 .75rem; font-size: 1.3rem; letter-spacing: -.01em; }
+.ord__dl { margin: 0; }
+.ord__dl > div { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid rgba(127,127,127,.25); }
+.ord__dl > div:last-child { border-bottom: 0; }
+.ord__dl dt { opacity: .8; }
+.ord__dl dd { margin: 0; font-weight: 600; text-align: right; }
+.ord__paid dd { font-size: 1.25rem; }
+.ord__test { display: inline-block; margin: .5rem 0 1.25rem; padding: .35rem .9rem; border-radius: 999px; font-size: .9rem; font-weight: 700; background: var(--warn-bg, #fff3c4); color: var(--warn-text, #4a3700); }
+.ord__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+.ord__btn { display: inline-block; padding: .85rem 1.5rem; font: inherit; font-weight: 700; text-decoration: none; text-align: center; cursor: pointer; color: var(--on-accent, #fff); background: var(--accent, #c2410c); border: 2px solid var(--accent, #c2410c); border-radius: 999px; transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s; }
+.ord__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.2); }
+.ord__btn--ghost { background: transparent; color: inherit; border-color: currentColor; }
+.ord__btn:focus-visible { outline: 3px solid var(--focus, #1a56db); outline-offset: 2px; }
+.ord__msg { padding: 1rem 1.25rem; border-radius: 1rem; border: 2px solid currentColor; max-width: 65ch; }
+.ord__spin { display: inline-block; width: 1.1rem; height: 1.1rem; margin-right: .5rem; vertical-align: -.2em; border: 3px solid rgba(127,127,127,.35); border-top-color: var(--accent, #c2410c); border-radius: 50%; animation: ord-spin 1s linear infinite; }
+@keyframes ord-spin { to { transform: rotate(360deg); } }
+@media (max-width: 40rem) { .ord__card { padding: 1rem; } .ord__actions .ord__btn { flex: 1 1 100%; } }
+@media (prefers-reduced-motion: reduce) { .ord__spin { animation: none; } .ord__btn { transition: none; } .ord__btn:hover { transform: none; } }
