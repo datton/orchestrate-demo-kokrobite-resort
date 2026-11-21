@@ -31,7 +31,7 @@
       features: ['Zwei Schlafzimmer', 'Wohnbereich', 'Veranda', 'Klimaanlage', 'WLAN'],
       bookedRanges: [[6, 12], [27, 33]] },
     { id: 'ruckzugs-studio', name: 'Rückzugs-Studio', maxGuests: 1, pricePerNight: 150, sizeM2: 26,
-      blurb: 'Das Zimmer für alle, die allein reisen: gemütlich, sicher gelegen und mit einem Platz zum Schreiben und Durchatmen.',
+      blurb: 'Das Zimmer für alle, die allein reisen: gemütlich, ruhig gelegen und mit einem Platz zum Schreiben und Durchatmen.',
       features: ['Für eine Person', 'Schreibtisch', 'Klimaanlage', 'WLAN', 'Leseecke'],
       bookedRanges: [[2, 5], [14, 18], [41, 46]] },
     { id: 'freundinnen-suite', name: 'Freundinnen-Suite', maxGuests: 3, pricePerNight: 360, sizeM2: 72,
