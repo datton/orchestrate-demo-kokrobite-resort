@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zimmer und Suiten</title>
+<meta name="description" content="Alle Zimmer des fiktiven Kokrobite-Resorts mit Preis pro Nacht. Demo: Hotel, Zimmer und Preise sind erfunden.">
+<style>@view-transition { navigation: auto; }</style>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="../css/zimmer.css">
+<script src="../js/nav.js" defer></script>
+<script src="../js/motion.js" defer></script>
+<script src="../js/app.js" defer></script>
+<script src="../js/de.js" defer></script>
+<script src="../js/resort-data.js" defer></script>
+<script defer>
+document.addEventListener('DOMContentLoaded', function () {
+  var root = document.getElementById('zm-list');
+  var D = window.KR_DATA, F = window.KR_DE;
+  if (!root || !D || !F || !D.rooms || !D.rooms.length) return;
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  root.innerHTML = D.rooms.map(function (r) {
+    return '<article class="zm-card" data-reveal>' +
+      '<span class="demo-label">Demo: fiktives Zimmer</span>' +
+      '<h2>' + esc(r.name) + '</h2>' +
+      '<p>' + esc(r.blurb) + '</p>' +
+      '<p class="zm-meta">Bis zu ' + esc(r.maxGuests) + (r.maxGuests === 1 ? ' Gast' : ' Gäste') + '</p>' +
+      '<p class="zm-price">' + F.money(r.pricePerNight) + ' <small>pro Nacht</small></p>' +
+      '<a class="zm-btn" href="reservierung.html?room=' + encodeURIComponent(r.id) + '" aria-label="' + esc(r.name) + ' reservieren">Reservieren</a>' +
+      '</article>';
+  }).join('');
+});
+</script>
+</head>
+<body>
+<main id="main">
+  <section class="band zm-hero">
+    <p class="zm-eyebrow" data-reveal>Zimmer und Suiten</p>
+    <h1 data-words>Dein Platz am Atlantik</h1>
+    <p class="zm-lead" data-reveal>Such dir dein Zimmer aus, wähle Anreise und Abreise und reserviere in wenigen Schritten. Alle Preise gelten pro Nacht.</p>
+  </section>
+  <section class="band">
+    <h2 data-reveal>Unsere Zimmer</h2>
+    <div class="zm-grid" id="zm-list" aria-live="polite">
+      <noscript><p class="zm-empty">Die Zimmerliste braucht JavaScript. Bitte aktiviere es, um Zimmer und Preise zu sehen.</p></noscript>
+    </div>
+    <p class="demo-label zm-note">Demo: Hotel, Zimmer und Preise sind erfunden. Es wird keine Zahlung genommen.</p>
+  </section>
+  <section class="band band--dark">
+    <h2 data-reveal>Nichts wird wirklich gebucht.</h2>
+    <p class="prose" data-reveal>Deine Reservierung bleibt in diesem Browser gespeichert und lässt sich als Kalenderdatei herunterladen. Es gibt keine Zahlung und keinen Versand.</p>
+    <p class="guide-note" data-reveal>Allgemeine Informationen, keine Rechts- oder Einreiseberatung. Regeln bitte vor der Reise bei den offiziellen Stellen prüfen.</p>
+  </section>
+</main>
+</body>
+</html>
