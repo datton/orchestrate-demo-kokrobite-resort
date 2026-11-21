@@ -1,7 +1,7 @@
 /* Zimmer page (Senior Dev 8): only tokens.css variables. */
 .zm-hero{min-height:70svh;display:grid;align-content:center;gap:1.25rem;background:var(--accent-soft);}
 .zm-eyebrow{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:var(--fs-sm);color:var(--accent-strong);margin:0}
-.zm-hero h1{font-size:var(--fs-giant);line-height:var(--lh-tight);letter-spacing:var(--track-display);margin:0;max-width:16ch;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.zm-hero h1{font-size:clamp(3rem,9vw,7rem);line-height:var(--lh-tight);letter-spacing:var(--track-display);margin:0;max-width:14ch;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;color:transparent}
 .zm-lead{font-size:var(--fs-lg);max-width:var(--measure,65ch);margin:0}
 .zm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,19rem),1fr));gap:1.5rem;margin-top:2.5rem}
 .zm-card{display:flex;flex-direction:column;gap:.9rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg,1.5rem);padding:1.75rem;box-shadow:var(--shadow-sm);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
@@ -9,8 +9,8 @@
 .zm-card h2,.zm-card h3{font-size:var(--fs-step);letter-spacing:var(--track-h2);margin:0}
 .zm-card p{margin:0}
 .zm-meta{font-size:var(--fs-sm);color:var(--text-muted)}
-.zm-price{font-size:var(--fs-h2);font-weight:800;letter-spacing:var(--track-h2);color:var(--accent-strong)}
-.zm-price small{font-size:var(--fs-sm);font-weight:500;color:var(--text-muted);letter-spacing:0}
+.zm-price{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem;font-size:var(--fs-h2);font-weight:800;letter-spacing:var(--track-h2);color:var(--accent-strong)}
+.zm-price small{display:inline;font-size:var(--fs-sm);font-weight:500;color:var(--text-muted);letter-spacing:0}
 .zm-btn{margin-top:auto;display:inline-block;text-align:center;padding:.85rem 1.5rem;border-radius:999px;background:var(--accent);color:var(--on-accent);font-weight:700;text-decoration:none;transition:transform var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease)}
 .zm-btn:hover,.zm-btn:focus-visible{transform:translateY(-2px);box-shadow:var(--glow)}
 .zm-note{margin-top:2.5rem}
