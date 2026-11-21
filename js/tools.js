@@ -33,7 +33,7 @@
   function remove(ref) { var list = read().filter(function (r) { return r.ref !== ref; }); write(list); return list; }
 
   // iCalendar text: escape \ ; , and newlines; CRLF line ends; DTEND is exclusive (the check-out day).
-  function esc(s) { return String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+  function esc(s) { return String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
   function ymd(iso) { return String(iso).slice(0, 10).replace(/-/g, ''); }
   function stamp(d) { return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
   function fold(line) {
