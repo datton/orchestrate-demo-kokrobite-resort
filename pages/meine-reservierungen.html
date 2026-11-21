@@ -103,7 +103,7 @@
         '</dl>' +
         (r.note ? '<p class="mr__note">Notiz: ' + esc(r.note) + '</p>' : '') +
         '<div class="mr__actions">' +
-          (r.orderToken && r.pay === 'offen' ? '<a class="mr__btn mr__btn--solid" href="reservierung.html">Zur Zahlung</a>' : '') +
+          (r.orderToken && r.pay !== 'bezahlt' ? '<a class="mr__btn mr__btn--solid" href="reservierung.html?room=' + encodeURIComponent(r.room) + '&in=' + encodeURIComponent(r['in']) + '&out=' + encodeURIComponent(r.out) + '&guests=' + encodeURIComponent(r.guests) + '">Zur Zahlung</a>' : '') +
           '<button type="button" class="mr__btn mr__btn--solid" data-act="ics" data-ref="' + esc(r.ref) + '">Kalenderdatei (.ics)</button>' +
           '<button type="button" class="mr__btn mr__btn--danger" data-act="ask" data-ref="' + esc(r.ref) + '">Stornieren</button>' +
         '</div></li>';
@@ -130,7 +130,7 @@
     else if (act === 'ask') {
       if (card.querySelector('.mr__confirm')) return;
       var box = document.createElement('div'); box.className = 'mr__confirm'; box.setAttribute('role', 'alertdialog'); box.setAttribute('aria-label', 'Stornierung bestätigen');
-      box.innerHTML = '<p>Reservierung ' + esc(ref) + ' wirklich stornieren?</p><button type="button" class="mr__btn mr__btn--solid" data-act="yes" data-ref="' + esc(ref) + '">Ja, stornieren</button><button type="button" class="mr__btn" data-act="no" data-ref="' + esc(ref) + '">Behalten</button>';
+      box.innerHTML = '<p>Reservierung ' + esc(ref) + ' wirklich stornieren?' + (((find(ref) || {}).pay === 'bezahlt') ? ' Die Testzahlung wird in dieser Demo nicht zurückerstattet.' : '') + '</p><button type="button" class="mr__btn mr__btn--solid" data-act="yes" data-ref="' + esc(ref) + '">Ja, stornieren</button><button type="button" class="mr__btn" data-act="no" data-ref="' + esc(ref) + '">Behalten</button>';
       card.appendChild(box); box.querySelector('[data-act="no"]').focus();
     } else if (act === 'no') { var c = card.querySelector('.mr__confirm'); if (c) c.remove(); card.querySelector('[data-act="ask"]').focus(); }
     else if (act === 'yes') { KR_RES.remove(ref); render(); say('Reservierung ' + ref + ' wurde storniert.'); var h = document.querySelector('.mr__title'); if (h) { h.setAttribute('tabindex', '-1'); h.focus(); } }
