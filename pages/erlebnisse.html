@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erlebnisse und Tagesplaner</title>
+<meta name="description" content="Plane deine Tage in Kokrobite: Strand, Surfen, Trommeln und Tanz, Fischerdorf. Demo-Angebote eines fiktiven Hotels.">
+<style>@view-transition { navigation: auto; }</style>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="../css/planner.css">
+<script src="../js/nav.js" defer></script>
+<script src="../js/motion.js" defer></script>
+<script src="../js/app.js" defer></script>
+<script src="../js/de.js" defer></script>
+<script src="../js/planner.js" defer></script>
+</head>
+<body>
+<main id="main">
+  <section class="band pl-hero">
+    <div class="pl">
+      <p class="pl__eyebrow" data-reveal>Erlebnisse <span class="demo-label">Demo / fiktives Hotel</span></p>
+      <h1 class="pl__title" data-words>Dein Tag in Kokrobite</h1>
+      <p class="pl__lead" data-reveal>Strand, Wellen, Trommeln und ein Spaziergang durchs Fischerdorf: Stelle dir Tag für Tag zusammen, was du erleben möchtest. Die Angebote sind die eines fiktiven Hotels, Preise nennen wir bewusst keine.</p>
+      <ul class="pl__cards" data-reveal>
+        <li><strong>Strand</strong><span>Weiße Sandstrände am Atlantik. An Wochenenden und Feiertagen gibt es Strandtreffen mit Essen, Tanz und Musik.</span></li>
+        <li><strong>Surfen</strong><span>Reiseführer nennen Kokrobite als beständigen Surfspot, die größten Wellen etwa von April bis September.</span></li>
+        <li><strong>Trommeln und Tanz</strong><span>Der Ort ist für Trommeln und Musik bekannt. Unser Workshop ist ein Demo-Angebot.</span></li>
+        <li><strong>Fischerdorf</strong><span>Traditionelle Küstenfischerei: ein ruhiger Spaziergang am Morgen.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band--dark pl-tool" aria-labelledby="pl-h">
+    <div class="pl">
+      <h2 id="pl-h" class="pl__h2" data-reveal>Tagesplaner</h2>
+      <form id="pl-setup" class="pl__setup" novalidate>
+        <div class="pl__field"><label for="pl-start">Erster Tag</label><input id="pl-start" type="date"></div>
+        <div class="pl__field"><label for="pl-days">Anzahl Tage</label>
+          <select id="pl-days"><option>2</option><option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option></select></div>
+      </form>
+      <p id="pl-hint" class="pl__hint" role="status"></p>
+      <div id="pl-days-wrap" class="pl__days"></div>
+      <noscript><p>Der Planer braucht JavaScript. Ohne JavaScript kannst du die Angebote oben lesen.</p></noscript>
+
+      <h3 class="pl__h3">Dein Plan</h3>
+      <div id="pl-plan" class="pl__plan" aria-live="polite"></div>
+      <div class="pl__actions">
+        <button class="pl__btn" id="pl-download" type="button">Plan als .txt herunterladen</button>
+        <button class="pl__btn pl__btn--ghost" id="pl-clear" type="button">Plan leeren</button>
+      </div>
+      <p class="pl__note">Dein Plan bleibt nur in diesem Browser gespeichert. Es wird nichts gesendet und nichts gebucht, es wird keine Zahlung genommen. Allgemeine Informationen, keine Rechts- oder Einreiseberatung. Regeln bitte vor der Reise bei den offiziellen Stellen prüfen.</p>
+    </div>
+  </section>
+</main>
+</body>
+</html>

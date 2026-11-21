@@ -1,0 +1,40 @@
+/* Erlebnisse / Tagesplaner (Senior Developer 4). Colours from tokens.css. */
+.pl-hero { padding-block: clamp(5rem, 12vw, 10rem) clamp(3rem, 8vw, 6rem); }
+.pl-tool { padding-block: clamp(4rem, 9vw, 8rem); }
+.pl { max-width: 68rem; margin-inline: auto; }
+.pl__eyebrow { margin: 0 0 .75rem; font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--accent, #c2410c); }
+.pl__title { margin: 0 0 1rem; font-size: clamp(2.75rem, 8vw, 6.5rem); line-height: 1; letter-spacing: -.035em; }
+.pl__h2 { margin: 0 0 1.5rem; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -.03em; line-height: 1.05; }
+.pl__h3 { margin: 2.5rem 0 1rem; font-size: 1.6rem; letter-spacing: -.02em; }
+.pl__lead { max-width: 65ch; font-size: 1.2rem; margin: 0 0 2rem; }
+.pl__cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; }
+.pl__cards li { padding: 1.25rem; border-radius: 1.25rem; background: var(--surface, rgba(127,127,127,.12)); box-shadow: 0 8px 28px rgba(0,0,0,.08); display: flex; flex-direction: column; gap: .4rem; }
+.pl__cards strong { font-size: 1.2rem; color: var(--accent, #c2410c); }
+.pl__setup { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: .75rem; }
+.pl__field { display: flex; flex-direction: column; gap: .35rem; }
+.pl__field label, .pl__slot label { font-weight: 600; }
+.pl select, .pl input[type="date"] { min-width: 11rem; padding: .7rem .85rem; font: inherit; color: var(--text, #111); background: var(--surface, #fff); border: 1.5px solid transparent; border-radius: .75rem; }
+.pl select:focus-visible, .pl input:focus-visible, .pl__btn:focus-visible { outline: 3px solid var(--focus, #ffd166); outline-offset: 2px; }
+.pl__hint { min-height: 1.5em; opacity: .85; }
+.pl__days { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1rem; }
+.pl__day { margin: 0; padding: 1rem 1.1rem 1.1rem; border-radius: 1.25rem; border: 1.5px solid rgba(255,255,255,.28); min-width: 0; }
+.pl__day legend { padding-inline: .4rem; font-weight: 700; }
+.pl__slot { display: flex; flex-direction: column; gap: .3rem; margin-top: .75rem; }
+.pl__slot select { width: 100%; box-sizing: border-box; }
+.pl__daynotes { margin: .75rem 0 0; font-size: .9rem; opacity: .9; }
+.pl__daynotes:empty { display: none; }
+.pl__plan { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1rem; }
+.pl__pday { padding: 1rem 1.2rem; border-radius: 1.25rem; background: rgba(255,255,255,.1); }
+.pl__pday h4 { margin: 0 0 .5rem; font-size: 1.1rem; }
+.pl__pday h4 span { display: block; font-weight: 400; opacity: .8; font-size: .9rem; }
+.pl__pday ul { list-style: none; margin: 0; padding: 0; line-height: 1.7; }
+.pl__pday li strong { display: inline-block; min-width: 6.5rem; opacity: .85; font-weight: 600; }
+.pl__free { margin: 0; opacity: .8; }
+.pl__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+.pl__btn { padding: .85rem 1.5rem; font: inherit; font-weight: 700; cursor: pointer; color: var(--on-accent, #fff); background: var(--accent, #c2410c); border: 2px solid var(--accent, #c2410c); border-radius: 999px; transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s; }
+.pl__btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.25); }
+.pl__btn:disabled { opacity: .55; cursor: not-allowed; }
+.pl__btn--ghost { background: transparent; color: inherit; border-color: currentColor; }
+.pl__note { margin-top: 1.5rem; max-width: 65ch; font-size: .9rem; opacity: .85; }
+@media (max-width: 40rem) { .pl__btn { width: 100%; } .pl select, .pl input[type="date"] { min-width: 0; width: 100%; } .pl__field { flex: 1 1 100%; } }
+@media (prefers-reduced-motion: reduce) { .pl__btn { transition: none; } .pl__btn:hover { transform: none; } }
