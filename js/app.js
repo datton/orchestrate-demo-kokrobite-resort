@@ -1,4 +1,4 @@
-/* Startseite (Full-Stack): Verfügbarkeitssuche über KR_DATA. Nichts wird gesendet. */
+/* Startseite (Full-Stack): Verfügbarkeitssuche über KR_DATA. Preise nur aus KR_DATA. */
 (function () {
   'use strict';
   var D = window.KR_DATA, DE = window.KR_DE;
@@ -44,7 +44,8 @@
         '<p>Bis zu ' + x.r.maxGuests + (x.r.maxGuests === 1 ? ' Gast' : ' Gäste') + '</p>' +
         '<div class="h-price">' + DE.money(x.q.total) + ' <small>für ' + DE.nights(nights) + '</small></div>' +
         '<p>' + DE.money(x.q.perNight) + ' pro Nacht' + (x.q.discount ? ', inkl. Langzeit-Rabatt' : '') + '</p>' +
-        '<a class="h-btn" href="' + link + '" aria-label="' + esc(x.r.name) + ' reservieren">Reservieren (Demo)</a></li>';
+        '<p class="h-note">Demo: nur Testzahlung, kein echtes Geld</p>' +
+        '<a class="h-btn" href="' + link + '" aria-label="' + esc(x.r.name) + ' reservieren">Reservieren</a></li>';
     }).join('');
   }
   [din, dout, guests].forEach(function (el) { el.addEventListener('input', render); el.addEventListener('change', render); });
