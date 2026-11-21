@@ -61,7 +61,7 @@
       'DTSTART;VALUE=DATE:' + ymd(res.in),
       'DTEND;VALUE=DATE:' + ymd(res.out),
       'SUMMARY:' + esc('Demo-Aufenthalt Kokrobite Resort (' + res.ref + ')'),
-      'DESCRIPTION:' + esc('Fiktives Hotel, Demo ohne Zahlung. Zimmer: ' + roomName(res.room) + '. Gäste: ' + res.guests + '. ' + (res.note ? ' ' + res.note : '')),
+      'DESCRIPTION:' + esc('Fiktives Hotel, Demo mit Testzahlung (kein echtes Geld). Zimmer: ' + roomName(res.room) + '. Gäste: ' + res.guests + '.' + (res.note ? ' ' + res.note : '')),
       'END:VEVENT', 'END:VCALENDAR'];
     return lines.map(fold).join('\r\n') + '\r\n';
   }
