@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kokrobite Resort: Meer, Rhythmus und Ruhe (Demo)</title>
+<meta name="description" content="Fiktives Demo-Hotel in Kokrobite, Ghana: Zimmer, Erlebnisse und Anreise-Infos für Frauen, die allein oder mit Freundinnen reisen. Keine echte Buchung, nichts wird gesendet.">
+<style>@view-transition { navigation: auto; }</style>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/site.css">
+<style>
+.h-hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:6rem max(1rem,5vw) 4rem;background:radial-gradient(55rem 28rem at 90% 0%,var(--accent-soft,#ffe1d6),transparent 70%),radial-gradient(40rem 24rem at 0% 100%,#fff0b8,transparent 70%),var(--bg,#fffaf3)}
+.h-hero h1{font-size:clamp(3rem,9vw,7rem);line-height:1;letter-spacing:-.04em;margin:0 0 1.5rem;max-width:14ch}
+.h-hero .lead{font-size:clamp(1.1rem,2vw,1.5rem);max-width:58ch;margin:0 0 2rem;opacity:.88}
+.kin{background:var(--gradient-text,linear-gradient(90deg,#d6336c,#f08c00,#0ca678,#d6336c));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:h-sweep 6s linear infinite}
+@keyframes h-sweep{to{background-position:-200% 0}}
+.h-btn{display:inline-flex;align-items:center;min-height:48px;padding:.75rem 1.6rem;border-radius:999px;background:var(--accent,#c2255c);color:var(--on-accent,#fff);font:inherit;font-weight:700;text-decoration:none;border:2px solid var(--accent,#c2255c);cursor:pointer;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.h-btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.2)}
+.h-btn--ghost{background:transparent;color:inherit;border-color:currentColor;margin-left:.75rem}
+.h-big{font-size:clamp(2.2rem,6vw,4.5rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 2rem;max-width:18ch}
+.h-marq{overflow:hidden;white-space:nowrap}.h-marq span{display:inline-block;font-size:clamp(4rem,14vw,12rem);font-weight:800;letter-spacing:-.04em;padding-right:2rem}
+.h-state{font-size:clamp(1.8rem,4.5vw,3.6rem);line-height:1.2;letter-spacing:-.02em;max-width:26ch;margin:0}
+.h-note{font-size:.9rem;opacity:.8;max-width:65ch}
+.h-demo{display:inline-block;align-self:flex-start;padding:.3rem .9rem;border-radius:999px;background:#fff0b8;color:#4a3b00;font-weight:700;font-size:.85rem;margin-bottom:1.2rem}
+.h-find{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1rem;background:var(--surface,#fff);color:var(--text,#1b1b1f);padding:clamp(1.2rem,3vw,2rem);border-radius:1.5rem;box-shadow:var(--shadow,0 8px 30px rgba(0,0,0,.12))}
+.h-field{display:grid;gap:.35rem;align-content:start}.h-field label{font-weight:600;font-size:.95rem}
+.h-field input,.h-field select{font:inherit;min-height:44px;padding:.6rem .9rem;border-radius:12px;border:1.5px solid rgba(90,90,90,.6);background:var(--bg,#fff);color:inherit;width:100%}
+.h-field input[aria-invalid="true"]{border-color:var(--danger,#b00020)}
+.h-err{grid-column:1/-1;color:var(--danger,#b00020);font-weight:600}.h-err:empty{display:none}
+.h-count{font-weight:700;margin:1.5rem 0 1rem}
+.h-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:1.25rem;margin:0;padding:0;list-style:none}
+.h-card{display:flex;flex-direction:column;gap:.5rem;border-radius:1.25rem;padding:1.6rem;background:var(--surface,#fff);color:var(--text,#1b1b1f);box-shadow:var(--shadow,0 6px 24px rgba(0,0,0,.1));border-top:6px solid var(--c,#c2255c);transition:transform .3s cubic-bezier(.2,.7,.2,1);animation:h-in .5s cubic-bezier(.2,.7,.2,1) both}
+.h-card:hover{transform:translateY(-4px)}.h-card h3{margin:0;font-size:1.35rem}.h-card p{margin:0}
+.h-price{font-size:1.9rem;font-weight:800;letter-spacing:-.03em;margin-top:auto}.h-price small{font-size:.9rem;font-weight:500;opacity:.75}
+.h-card a.h-btn{align-self:flex-start}
+.h-empty{padding:1.6rem;border-radius:1.25rem;background:var(--surface,#fff);color:var(--text,#1b1b1f);font-weight:600}
+@keyframes h-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.h-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1.25rem;margin:0;padding:0;list-style:none}
+.h-info{border-radius:1.25rem;padding:1.75rem;background:var(--dark-2,#2b1a3d);color:var(--on-dark,#fff)}.h-info h3{margin:0 0 .5rem;font-size:1.3rem}.h-info p{margin:0 0 .6rem}.h-info a{font-weight:700}
+.h-steps{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.h-steps [data-step-word]{position:sticky;top:20vh;font-size:clamp(3.5rem,12vw,10rem);font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--accent-on-dark,#ffd43b)}
+.h-steps .step{min-height:60vh;display:flex;align-items:center;font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.25;max-width:22ch}
+.h-nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:2rem}
+.h-nums b{display:block;font-size:clamp(3rem,8vw,6rem);letter-spacing:-.04em;line-height:1}
+@media(max-width:700px){.h-steps{grid-template-columns:1fr}.h-steps [data-step-word]{position:static}.h-steps .step{min-height:auto;padding-block:1.5rem}.h-btn--ghost{margin:.75rem 0 0}}
+@media(prefers-reduced-motion:reduce){.kin{animation:none}.h-card{animation:none}}
+</style>
+<script src="js/nav.js" defer></script>
+<script src="js/motion.js" defer></script>
+<script src="js/de.js" defer></script>
+<script src="js/resort-data.js" defer></script>
+<script src="js/app.js" defer></script>
+</head>
+<body>
+<main id="main">
+
+<section class="h-hero" id="top">
+  <span class="h-demo">Fiktives Demo-Hotel: keine echte Buchung</span>
+  <h1 data-words>Meer, Rhythmus und <span class="kin">Ruhe.</span></h1>
+  <p class="lead" data-reveal>Das Kokrobite Resort liegt an der Atlantikküste Ghanas, rund 30 Kilometer westlich von Accra. Gemacht für Frauen, die allein oder mit Freundinnen reisen: Strand, Surfen, Trommeln, Tanz und ein Zimmer zum Durchatmen.</p>
+  <p data-reveal><a class="h-btn" href="#suche">Freie Zimmer finden</a><a class="h-btn h-btn--ghost" href="pages/zimmer.html">Zimmer ansehen</a></p>
+</section>
+
+<section class="band band--dark" aria-label="Was dich erwartet">
+  <div class="h-marq" data-marquee aria-hidden="true"><span>Strand · Surfen · Trommeln · Tanz · Fischerdorf · Strand · Surfen · Trommeln · Tanz · Fischerdorf · </span></div>
+</section>
+
+<section class="band" id="suche" aria-labelledby="s-h">
+  <h2 class="h-big" id="s-h" data-words>Freie Zimmer finden</h2>
+  <form class="h-find" id="find" novalidate aria-label="Verfügbarkeit prüfen">
+    <div class="h-field"><label for="f-in">Anreise</label><input id="f-in" type="date"></div>
+    <div class="h-field"><label for="f-out">Abreise</label><input id="f-out" type="date"></div>
+    <div class="h-field"><label for="f-guests">Gäste</label><select id="f-guests"><option value="1">1 Gast</option><option value="2" selected>2 Gäste</option><option value="3">3 Gäste</option><option value="4">4 Gäste</option></select></div>
+    <p class="h-err" id="f-err" role="alert"></p>
+  </form>
+  <p class="h-count" id="count" role="status" aria-live="polite">Wähle Anreise und Abreise, dann siehst du die freien Zimmer und den Preis für deinen Aufenthalt.</p>
+  <ul class="h-list" id="results"></ul>
+  <p class="h-note" style="margin-top:1.5rem">Demo: Hotel, Zimmer, Preise und Verfügbarkeit sind erfunden. Es wird nichts bezahlt und nichts gesendet.</p>
+  <noscript><p>Die Suche braucht JavaScript. Die Zimmer findest du auf der Seite <a href="pages/zimmer.html">Zimmer</a>.</p></noscript>
+</section>
+
+<section class="band band--dark">
+  <p class="h-state" data-fill>Allein reisen heißt nicht allein sein: ankommen, durchatmen, Wellen hören, abends im Rhythmus der Trommeln tanzen.</p>
+</section>
+
+<section class="band" id="nums" aria-label="Eckdaten">
+  <div class="h-nums">
+    <div data-reveal><b data-count="30">30</b>Kilometer westlich von Accra</div>
+    <div data-reveal><b data-count="4">4</b>Erlebnisse im Planer: Strand, Surfen, Trommeln, Fischerdorf</div>
+    <div data-reveal><b data-count="7">7</b>Nächte oder mehr: im Demo-Hotel 10 % günstiger</div>
+  </div>
+  <p class="h-note" style="margin-top:1.5rem" data-reveal>Entfernung zu Accra nach Wikipedia, Stand 21.11.2026. Preisvorteil: Demo-Angebot des fiktiven Hotels.</p>
+</section>
+
+<section class="band band--dark" id="ablauf">
+  <div class="h-steps" data-sticky-steps>
+    <div data-step-word aria-hidden="true">Wählen</div>
+    <div>
+      <div class="step" data-step="Wählen">Zimmer und Reisedaten wählen.</div>
+      <div class="step" data-step="Reservieren">Angaben eintragen und eine Demo-Reservierung anlegen.</div>
+      <div class="step" data-step="Planen">Tage mit Strand, Surfen, Trommeln und Fischerdorf planen.</div>
+      <div class="step" data-step="Ankommen">Anreise und Sicherheitstipps vorab lesen.</div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="mehr" aria-labelledby="m-h">
+  <h2 class="h-big" id="m-h" data-words>Gut vorbereitet ankommen</h2>
+  <ul class="h-cards">
+    <li class="h-info" data-reveal><h3>Zimmer</h3><p>Von der Meerblick-Suite bis zum Rückzugs-Studio für alle, die allein reisen.</p><a href="pages/zimmer.html">Zimmer ansehen</a></li>
+    <li class="h-info" data-reveal><h3>Erlebnisse</h3><p>Ein Tag nach dem anderen: Strand, Surfen, Trommeln und Tanz, Fischerdorf.</p><a href="pages/erlebnisse.html">Tage planen</a></li>
+    <li class="h-info" data-reveal><h3>Anreise und Sicherheit</h3><p>Einreise, Gesundheit und Tipps für Frauen, die allein reisen, mit Quellen und Stand.</p><a href="pages/anreise.html">Anreise lesen</a></li>
+    <li class="h-info" data-reveal><h3>Meine Reservierungen</h3><p>Deine Demo-Reservierungen bleiben in diesem Browser. Als Kalenderdatei laden.</p><a href="pages/meine-reservierungen.html">Reservierungen ansehen</a></li>
+  </ul>
+  <p class="guide-note" style="margin-top:2.5rem" data-reveal>Allgemeine Informationen, keine Rechts- oder Einreiseberatung. Regeln bitte vor der Reise bei den offiziellen Stellen prüfen. Das Kokrobite Resort ist ein erfundenes Demo-Hotel. <a href="pages/demo-hinweis.html">Mehr zur Demo</a></p>
+</section>
+
+</main>
+</body>
+</html>
