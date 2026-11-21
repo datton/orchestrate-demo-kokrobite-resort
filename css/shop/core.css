@@ -1,0 +1,6 @@
+/* Payment pieces shared by the reservation, confirmation and My reservations pages (Lead Developer). */
+.test-money { display: inline-block; padding: .35rem .85rem; border-radius: 999px; background: var(--sun, #ffe9a8); color: #3a2a00; font-size: .85rem; font-weight: 700; }
+.pay-badge { display: inline-block; padding: .15rem .65rem; border-radius: 999px; font-size: .8rem; font-weight: 700; background: rgba(127,127,127,.18); }
+.pay-badge--paid { background: #d9f5e3; color: #0b4a22; }
+.pay-badge--open { background: #ffe9a8; color: #3a2a00; }
+.pay-badge--failed { background: #fde0e0; color: #7a1010; }

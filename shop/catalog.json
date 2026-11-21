@@ -1,0 +1,194 @@
+{
+ "brand": {
+  "name": "Kokrobite Resort",
+  "short": "Kokrobite Resort",
+  "kind": "services",
+  "tagline": "Meer, Rhythmus und Ruhe (fiktives Demo-Hotel)"
+ },
+ "currency": "EUR",
+ "timezone": "Africa/Accra",
+ "demo": true,
+ "stores": [],
+ "categories": [
+  {
+   "id": "zimmer",
+   "name": "Zimmer",
+   "blurb": "Fiktive Demo-Zimmer, Preis pro Nacht"
+  }
+ ],
+ "options": {
+  "tarif-meerblick-suite": {
+   "name": "Tarif",
+   "type": "one",
+   "required": true,
+   "choices": [
+    {
+     "id": "standard",
+     "name": "Standardtarif (1 bis 6 Nächte)",
+     "price": 0,
+     "default": true
+    },
+    {
+     "id": "woche",
+     "name": "Wochentarif ab 7 Nächten: 10 % günstiger",
+     "price": -3100
+    }
+   ]
+  },
+  "tarif-palmengarten-zimmer": {
+   "name": "Tarif",
+   "type": "one",
+   "required": true,
+   "choices": [
+    {
+     "id": "standard",
+     "name": "Standardtarif (1 bis 6 Nächte)",
+     "price": 0,
+     "default": true
+    },
+    {
+     "id": "woche",
+     "name": "Wochentarif ab 7 Nächten: 10 % günstiger",
+     "price": -1900
+    }
+   ]
+  },
+  "tarif-strandhaus": {
+   "name": "Tarif",
+   "type": "one",
+   "required": true,
+   "choices": [
+    {
+     "id": "standard",
+     "name": "Standardtarif (1 bis 6 Nächte)",
+     "price": 0,
+     "default": true
+    },
+    {
+     "id": "woche",
+     "name": "Wochentarif ab 7 Nächten: 10 % günstiger",
+     "price": -4200
+    }
+   ]
+  },
+  "tarif-ruckzugs-studio": {
+   "name": "Tarif",
+   "type": "one",
+   "required": true,
+   "choices": [
+    {
+     "id": "standard",
+     "name": "Standardtarif (1 bis 6 Nächte)",
+     "price": 0,
+     "default": true
+    },
+    {
+     "id": "woche",
+     "name": "Wochentarif ab 7 Nächten: 10 % günstiger",
+     "price": -1500
+    }
+   ]
+  },
+  "tarif-freundinnen-suite": {
+   "name": "Tarif",
+   "type": "one",
+   "required": true,
+   "choices": [
+    {
+     "id": "standard",
+     "name": "Standardtarif (1 bis 6 Nächte)",
+     "price": 0,
+     "default": true
+    },
+    {
+     "id": "woche",
+     "name": "Wochentarif ab 7 Nächten: 10 % günstiger",
+     "price": -3600
+    }
+   ]
+  }
+ },
+ "items": [
+  {
+   "id": "meerblick-suite",
+   "name": "Meerblick-Suite",
+   "category": "zimmer",
+   "price": 31000,
+   "options": [
+    "tarif-meerblick-suite"
+   ],
+   "desc": "Weite Suite mit eigenem Balkon und Blick auf den Atlantik. Demo-Zimmer, Preis pro Nacht (Menge = Nächte).",
+   "includes": [
+    "Bis zu 2 Gaste",
+    "Fiktives Demo-Zimmer: kein echter Aufenthalt"
+   ],
+   "maxGuests": 2,
+   "soldOut": false
+  },
+  {
+   "id": "palmengarten-zimmer",
+   "name": "Palmengarten-Zimmer",
+   "category": "zimmer",
+   "price": 19000,
+   "options": [
+    "tarif-palmengarten-zimmer"
+   ],
+   "desc": "Helles Zimmer mit Terrasse zum Garten. Demo-Zimmer, Preis pro Nacht (Menge = Nächte).",
+   "includes": [
+    "Bis zu 2 Gaste",
+    "Fiktives Demo-Zimmer: kein echter Aufenthalt"
+   ],
+   "maxGuests": 2,
+   "soldOut": false
+  },
+  {
+   "id": "strandhaus",
+   "name": "Strandhaus",
+   "category": "zimmer",
+   "price": 42000,
+   "options": [
+    "tarif-strandhaus"
+   ],
+   "desc": "Kleines Haus mit zwei Schlafzimmern, Wohnbereich und Veranda. Demo-Zimmer, Preis pro Nacht (Menge = Nächte).",
+   "includes": [
+    "Bis zu 4 Gaste",
+    "Fiktives Demo-Zimmer: kein echter Aufenthalt"
+   ],
+   "maxGuests": 4,
+   "soldOut": false
+  },
+  {
+   "id": "ruckzugs-studio",
+   "name": "Rückzugs-Studio",
+   "category": "zimmer",
+   "price": 15000,
+   "options": [
+    "tarif-ruckzugs-studio"
+   ],
+   "desc": "Gemütliches Zimmer für eine Person. Demo-Zimmer, Preis pro Nacht (Menge = Nächte).",
+   "includes": [
+    "Bis zu 1 Gast",
+    "Fiktives Demo-Zimmer: kein echter Aufenthalt"
+   ],
+   "maxGuests": 1,
+   "soldOut": false
+  },
+  {
+   "id": "freundinnen-suite",
+   "name": "Freundinnen-Suite",
+   "category": "zimmer",
+   "price": 36000,
+   "options": [
+    "tarif-freundinnen-suite"
+   ],
+   "desc": "Drei Betten, großer Wohnraum und Dachterrasse. Demo-Zimmer, Preis pro Nacht (Menge = Nächte).",
+   "includes": [
+    "Bis zu 3 Gaste",
+    "Fiktives Demo-Zimmer: kein echter Aufenthalt"
+   ],
+   "maxGuests": 3,
+   "soldOut": false
+  }
+ ],
+ "coupons": []
+}
