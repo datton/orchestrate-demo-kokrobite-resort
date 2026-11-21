@@ -9,12 +9,14 @@
 <link rel="stylesheet" href="../css/tokens.css">
 <link rel="stylesheet" href="../css/layout.css">
 <link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="../css/shop/core.css">
 <link rel="stylesheet" href="../css/meine.css">
 <script src="../js/nav.js" defer></script>
 <script src="../js/motion.js" defer></script>
 <script src="../js/app.js" defer></script>
 <script src="../js/resort-data.js" defer></script>
 <script src="../js/de.js" defer></script>
+<script src="../js/shop/core.js" defer></script>
 <script src="../js/tools.js" defer></script>
 </head>
 <body>
@@ -24,10 +26,10 @@
       <p class="mr__eyebrow" data-reveal>Dein Aufenthalt</p>
       <h1 class="mr__title" data-words>Meine Reservierungen</h1>
       <p class="mr__lead" data-reveal>Hier findest du alles, was du in diesem Browser reserviert hast. Du kannst jede Reservierung als Kalenderdatei speichern oder stornieren.</p>
-      <p data-reveal><span class="demo-label">Fiktives Hotel · Demo</span></p>
+      <p data-reveal><span class="demo-label">Fiktives Hotel · Demo</span> <span class="demo-label">Demo: nur Testzahlung, kein echtes Geld</span></p>
       <div id="mr-root" aria-live="polite"><p>Reservierungen werden geladen …</p></div>
       <p class="mr__status" id="mr-status" role="status"></p>
-      <p class="mr__foot">Demo: Die Reservierungen bleiben nur in diesem Browser gespeichert. Es wird nichts gesendet und keine Zahlung genommen.</p>
+      <p class="mr__foot">Reservierungen bleiben nur in diesem Browser gespeichert. <span id="mr-test"></span></p>
     </div>
   </section>
 </main>
@@ -44,6 +46,42 @@
   function fmtNights(n) { return window.KR_DE ? KR_DE.nights(n) : n + ' Nächte'; }
   function say(t) { var s = document.getElementById('mr-status'); if (s) s.textContent = t || ''; }
 
+  function badge(r) {
+    if (!r.orderToken) return '';
+    if (r.pay === 'bezahlt') return '<span class="pay-badge pay-badge--paid">Bezahlt (Test): ' + esc(window.KR_SHOP ? KR_SHOP.money(r.paid || 0) : '') + '</span>';
+    if (r.pay === 'abgebrochen') return '<span class="pay-badge pay-badge--failed">Zahlung abgebrochen</span>';
+    return '<span class="pay-badge pay-badge--open">Zahlung offen</span>';
+  }
+  function payOf(o) {
+    var st = o.status;
+    if (st === 'pending') return 'offen';
+    if (st === 'cancelled' || st === 'refunded') return 'abgebrochen';
+    return 'bezahlt';
+  }
+  function save(changes) {
+    var KEY = 'kokrobite:reservations', list;
+    if (KR_RES.update) { Object.keys(changes).forEach(function (ref) { KR_RES.update(ref, changes[ref]); }); return; }
+    try { list = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { return; }
+    if (!Array.isArray(list)) return;
+    list.forEach(function (r) { if (changes[r.ref]) for (var k in changes[r.ref]) r[k] = changes[r.ref][k]; });
+    try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
+  }
+  function refresh() {
+    if (!window.KR_RES || !window.KR_SHOP) return;
+    var list = KR_RES.list() || [], byTok = {}, tokens = [];
+    list.forEach(function (r) { if (r.orderToken) { byTok[r.orderToken] = r; tokens.push(r.orderToken); } });
+    if (!tokens.length) return;
+    KR_SHOP.api('orders/lookup', { tokens: tokens.slice(0, 30) }).then(function (d) {
+      var changes = {}, any = false;
+      (d.orders || []).forEach(function (o) {
+        var r = byTok[o.token]; if (!r) return;
+        var pay = payOf(o), paid = pay === 'bezahlt' ? o.total : 0;
+        if (r.pay !== pay || r.paid !== paid) { changes[r.ref] = { pay: pay, paid: paid }; any = true; }
+      });
+      if (any) { save(changes); render(); }
+    }).catch(function () { say('Der Zahlungsstatus konnte gerade nicht aktualisiert werden.'); });
+  }
+
   function render() {
     var root = document.getElementById('mr-root');
     if (!window.KR_RES) { root.innerHTML = '<p>Die Reservierungen konnten nicht geladen werden. Bitte lade die Seite neu.</p>'; return; }
@@ -54,7 +92,7 @@
     }
     root.innerHTML = '<ul class="mr__list">' + list.map(function (r) {
       return '<li class="mr__card" data-ref="' + esc(r.ref) + '">' +
-        '<p class="mr__ref">' + esc(r.ref) + '</p>' +
+        '<p class="mr__ref">' + esc(r.ref) + ' ' + badge(r) + '</p>' +
         '<h2 class="mr__room">' + esc(roomName(r.room)) + '</h2>' +
         '<dl class="mr__dl">' +
           '<div><dt>Anreise</dt><dd>' + esc(fmtDate(r['in'])) + '</dd></div>' +
@@ -65,6 +103,7 @@
         '</dl>' +
         (r.note ? '<p class="mr__note">Notiz: ' + esc(r.note) + '</p>' : '') +
         '<div class="mr__actions">' +
+          (r.orderToken && r.pay === 'offen' ? '<a class="mr__btn mr__btn--solid" href="reservierung.html">Zur Zahlung</a>' : '') +
           '<button type="button" class="mr__btn mr__btn--solid" data-act="ics" data-ref="' + esc(r.ref) + '">Kalenderdatei (.ics)</button>' +
           '<button type="button" class="mr__btn mr__btn--danger" data-act="ask" data-ref="' + esc(r.ref) + '">Stornieren</button>' +
         '</div></li>';
@@ -97,7 +136,7 @@
     else if (act === 'yes') { KR_RES.remove(ref); render(); say('Reservierung ' + ref + ' wurde storniert.'); var h = document.querySelector('.mr__title'); if (h) { h.setAttribute('tabindex', '-1'); h.focus(); } }
   });
 
-  function start() { render(); }
+  function start() { var t = document.getElementById('mr-test'); if (t && window.KR_SHOP) t.textContent = KR_SHOP.TEST_LABEL; render(); refresh(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { window.addEventListener('load', start); });
   else if (document.readyState === 'complete') start(); else window.addEventListener('load', start);
 })();
