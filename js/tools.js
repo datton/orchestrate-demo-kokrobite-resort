@@ -155,7 +155,7 @@
     guestsFill(q.get('guests'));
     mountCal();
     var qi = q.get('in'), qo = q.get('out');
-    if (qi && qo && st.cal && st.cal.setRange) { try { st.cal.setRange({ in: qi, out: qo }); st.range = { in: qi, out: qo }; } catch (e) {} }
+    if (qi && qo && st.cal && st.cal.setRange) { var okr = false; try { okr = st.cal.setRange({ in: qi, out: qo }); } catch (e) {} if (!okr) st.range = null; }
     summary();
   }
 
