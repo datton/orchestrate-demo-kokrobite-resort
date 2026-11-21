@@ -39,7 +39,7 @@
     }
     count.textContent = rows.length + (rows.length === 1 ? ' Zimmer frei' : ' Zimmer frei') + ' für ' + DE.nights(nights) + ' (' + DE.dateShort(a) + ' bis ' + DE.dateShort(b) + ')';
     list.innerHTML = rows.map(function (x, i) {
-      var link = 'pages/reservierung.html?room=' + encodeURIComponent(x.r.id) + '&in=' + encodeURIComponent(a) + '&out=' + encodeURIComponent(b);
+      var link = 'pages/reservierung.html?room=' + encodeURIComponent(x.r.id) + '&in=' + encodeURIComponent(a) + '&out=' + encodeURIComponent(b) + '&guests=' + g;
       return '<li class="h-card" style="--c:' + x.c + ';animation-delay:' + (i * 60) + 'ms"><h3>' + esc(x.r.name) + '</h3><p>' + esc(x.r.blurb) + '</p>' +
         '<p>Bis zu ' + x.r.maxGuests + (x.r.maxGuests === 1 ? ' Gast' : ' Gäste') + '</p>' +
         '<div class="h-price">' + DE.money(x.q.total) + ' <small>für ' + DE.nights(nights) + '</small></div>' +
