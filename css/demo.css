@@ -1,0 +1,26 @@
+/* Demo-Hinweis und FAQ (Senior 7). Farben nur aus tokens.css. */
+.dh-hero { min-height: 70svh; display: grid; align-content: center; gap: 1.25rem; }
+.dh-hero h1 { font-size: clamp(2.6rem, 8vw, 6rem); line-height: 1.02; letter-spacing: -.03em; margin: 0; max-width: 16ch; }
+.dh-lead { font-size: clamp(1.15rem, 2.4vw, 1.6rem); max-width: 40ch; margin: 0; }
+.dh-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); margin-top: 2.5rem; }
+.dh-card { background: var(--surface, rgba(127,127,127,.12)); border: 1px solid var(--line, rgba(127,127,127,.3)); border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--shadow-sm, none); transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+.dh-card:hover { transform: translateY(-4px); }
+.dh-card h3 { margin: 0 0 .5rem; font-size: 1.35rem; color: var(--accent, inherit); }
+.band--dark .dh-card h3 { color: var(--accent-on-dark, var(--accent, inherit)); }
+.dh-card p { margin: 0; max-width: 40ch; }
+.dh-h2 { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -.02em; line-height: 1.1; margin: 0 0 1rem; }
+.faq { max-width: 52rem; margin-top: 2rem; display: grid; gap: .75rem; }
+.faq__item { border: 1px solid var(--line, rgba(127,127,127,.3)); border-radius: 1.25rem; background: var(--surface, transparent); overflow: hidden; }
+.faq__q { margin: 0; }
+.faq__btn { all: unset; box-sizing: border-box; display: flex; width: 100%; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.1rem 1.4rem; font-weight: 700; font-size: 1.1rem; cursor: pointer; }
+.faq__btn:hover { color: var(--accent, inherit); }
+.faq__btn:focus-visible { outline: 3px solid var(--focus, #1a56db); outline-offset: -3px; border-radius: 1.25rem; }
+.faq__icon { flex: none; width: 1.8rem; height: 1.8rem; border-radius: 50%; display: grid; place-items: center; background: var(--accent, #333); color: var(--on-accent, #fff); transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+.faq__btn[aria-expanded="true"] .faq__icon { transform: rotate(45deg); }
+.faq__a { padding: 0 1.4rem 1.2rem; max-width: 62ch; }
+.faq__a p { margin: 0; }
+.faq__a[hidden] { display: none; }
+html:not(.js) .faq__a[hidden] { display: block; }
+.dh-note { margin-top: 2rem; max-width: 62ch; }
+@media (prefers-reduced-motion: reduce) { .dh-card, .faq__icon { transition: none; } .dh-card:hover { transform: none; } }
+.band--dark .dh-card { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22); color: var(--on-dark, #fff); }

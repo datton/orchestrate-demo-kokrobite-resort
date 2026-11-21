@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Über diese Demo und FAQ</title>
+<meta name="description" content="Das Resort ist erfunden: Was in dieser Demo passiert, was nicht, und Antworten auf die häufigsten Fragen zur Reservierung.">
+<style>@view-transition { navigation: auto; }</style>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="../css/demo.css">
+<script src="../js/nav.js" defer></script>
+<script src="../js/motion.js" defer></script>
+<script src="../js/app.js" defer></script>
+</head>
+<body>
+<main id="main">
+  <section class="band dh-hero">
+    <p data-reveal><span class="demo-label">Demo, erfundenes Hotel</span></p>
+    <h1 data-words>Alles hier ist ein Spiel. Und das ist gut so.</h1>
+    <p class="dh-lead" data-reveal>Das Resort in Kokrobite, seine Zimmer und Preise sind für diese Demo erfunden. Du kannst alles ausprobieren, ohne dass etwas Echtes passiert.</p>
+  </section>
+
+  <section class="band band--dark">
+    <h2 class="dh-h2" data-reveal>Was in dieser Demo passiert</h2>
+    <div class="dh-grid">
+      <div class="dh-card" data-reveal><h3>Kein echtes Hotel</h3><p>Name, Zimmer, Preise und Verfügbarkeiten sind ausgedacht und als Beispiel gekennzeichnet.</p></div>
+      <div class="dh-card" data-reveal><h3>Keine Zahlung</h3><p>Es wird nichts bezahlt und nach keiner Karte gefragt. Der Gesamtpreis ist nur eine Rechnung zur Ansicht.</p></div>
+      <div class="dh-card" data-reveal><h3>Nichts wird gesendet</h3><p>Deine Eingaben verlassen diesen Browser nie. Es gibt keinen Server, der sie empfängt.</p></div>
+      <div class="dh-card" data-reveal><h3>Daten bleiben bei dir</h3><p>Reservierungen liegen nur im Speicher dieses Browsers. Du kannst sie in „Meine Reservierungen“ ansehen und löschen.</p></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <h2 class="dh-h2" data-reveal>Häufige Fragen</h2>
+    <div class="faq" id="faq">
+      <div class="faq__item" data-reveal>
+        <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a1" id="faq-q1">Ist das Resort echt?<span class="faq__icon" aria-hidden="true">+</span></button></h3>
+        <div class="faq__a" id="faq-a1" role="region" aria-labelledby="faq-q1" hidden><p>Nein. Das Hotel ist erfunden und dient nur dazu, zu zeigen, wie eine Reservierungsseite funktionieren kann. Du kannst es nicht wirklich buchen.</p></div>
+      </div>
+      <div class="faq__item" data-reveal>
+        <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a2" id="faq-q2">Wie reserviere ich ein Zimmer?<span class="faq__icon" aria-hidden="true">+</span></button></h3>
+        <div class="faq__a" id="faq-a2" role="region" aria-labelledby="faq-q2" hidden><p>Wähle auf der Seite „Zimmer“ ein Zimmer oder öffne direkt die Reservierung. Dort wählst du Anreise- und Abreisedatum im Kalender, die Zahl der Gäste und gibst einen Namen ein. Der Preis wird sofort berechnet. Am Ende bekommst du eine Referenz im Format KR-XXXXXX.</p></div>
+      </div>
+      <div class="faq__item" data-reveal>
+        <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a3" id="faq-q3">Muss ich etwas bezahlen?<span class="faq__icon" aria-hidden="true">+</span></button></h3>
+        <div class="faq__a" id="faq-a3" role="region" aria-labelledby="faq-q3" hidden><p>Nein. Es gibt keine Zahlung, keine Anzahlung und keine Kartendaten. Der angezeigte Betrag ist nur ein Beispielpreis.</p></div>
+      </div>
+      <div class="faq__item" data-reveal>
+        <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a4" id="faq-q4">Wohin gehen meine Angaben?<span class="faq__icon" aria-hidden="true">+</span></button></h3>
+        <div class="faq__a" id="faq-a4" role="region" aria-labelledby="faq-q4" hidden><p>Nirgendwohin. Alles bleibt im lokalen Speicher deines Browsers. Es wird keine E-Mail verschickt und nichts an einen Server übertragen. Wenn du die Browserdaten löschst, sind die Reservierungen weg.</p></div>
+      </div>
+      <div class="faq__item" data-reveal>
+        <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a5" id="faq-q5">Kann ich eine Reservierung ändern oder löschen?<span class="faq__icon" aria-hidden="true">+</span></button></h3>
+        <div class="faq__a" id="faq-a5" role="region" aria-labelledby="faq-q5" hidden><p>Löschen kannst du sie unter „Meine Reservierungen“. Für eine Änderung löschst du sie und legst eine neue an. Dort kannst du sie auch als Kalenderdatei (.ics) speichern.</p></div>
+      </div>
+      <div class="faq__item" data-reveal>
+        <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a6" id="faq-q6">Warum sind manche Daten nicht frei?<span class="faq__icon" aria-hidden="true">+</span></button></h3>
+        <div class="faq__a" id="faq-a6" role="region" aria-labelledby="faq-q6" hidden><p>Die belegten Tage sind Beispieldaten, die immer relativ zu heute gesetzt werden, damit die Seite nie veraltet aussieht. Sie sagen nichts über ein echtes Hotel.</p></div>
+      </div>
+      <div class="faq__item" data-reveal>
+        <h3 class="faq__q"><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-a7" id="faq-q7">Wie kann ich das Resort kontaktieren?<span class="faq__icon" aria-hidden="true">+</span></button></h3>
+        <div class="faq__a" id="faq-a7" role="region" aria-labelledby="faq-q7" hidden><p>Gar nicht, denn es gibt kein echtes Hotel und deshalb auch keine Telefonnummer, E-Mail oder Adresse. Für die Reise nach Ghana verlasse dich auf die Hinweise auf der Seite „Anreise“ und auf die offiziellen Quellen dort.</p></div>
+      </div>
+    </div>
+    <p class="guide-note dh-note" data-reveal>Hinweise zu Einreise und Sicherheit sind allgemeine Informationen, keine Rechts- oder Reiseberatung. Bitte prüfe sie bei den offiziellen Stellen.</p>
+  </section>
+</main>
+<script>
+document.documentElement.classList.add('js');
+document.querySelectorAll('.faq__btn').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var open = b.getAttribute('aria-expanded') === 'true';
+    b.setAttribute('aria-expanded', String(!open));
+    document.getElementById(b.getAttribute('aria-controls')).hidden = open;
+  });
+});
+</script>
+</body>
+</html>
