@@ -52,7 +52,7 @@
       '<div class="site-footer__inner">' +
       '<div class="site-footer__brand"><strong>Kokrobite Resort</strong><p>Ein erfundenes 5-Sterne-Resort in Kokrobite, Ghana, für dieses Demo. Hotel, Zimmer und Preise sind fiktiv.</p></div>' +
       '<nav aria-label="Fußbereich"><ul>' + links + '</ul></nav>' +
-      '<p class="site-footer__test">Demo: keine echte Zahlung, nichts wird gesendet. Reservierungen bleiben in diesem Browser. <a href="' + esc(base) + 'pages/demo-hinweis.html">Mehr zum Demo</a></p>' +
+      '<p class="site-footer__test">Demo-Shop: nur Testzahlungen, es bewegt sich kein echtes Geld. Reservierungen bleiben in diesem Browser. <a href="' + esc(base) + 'pages/demo-hinweis.html">Mehr zum Demo</a></p>' +
       '<p class="site-footer__small">Allgemeine Informationen, keine Rechts- oder Einreiseberatung. Regeln bitte vor der Reise bei den offiziellen Stellen prüfen.</p>' +
       '<p class="site-footer__small">Ein fiktives Unternehmen in einer Orchestrate-Solutions-Demonstration.</p>' +
       '</div>';
