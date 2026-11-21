@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reservierung</title>
+<meta name="description" content="Zimmer wählen, Reisedaten festlegen und eine Demo-Reservierung anlegen. Es wird nichts bezahlt und nichts gesendet.">
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/site.css">
+<link rel="stylesheet" href="../css/calendar.css">
+<link rel="stylesheet" href="../css/reservation.css">
+<script src="../js/nav.js" defer></script>
+<script src="../js/motion.js" defer></script>
+<script src="../js/app.js" defer></script>
+<script src="../js/de.js" defer></script>
+<script src="../js/resort-data.js" defer></script>
+<script src="../js/calendar.js" defer></script>
+<script src="../js/tools.js" defer></script>
+</head>
+<body>
+<main id="main">
+  <section class="band res">
+    <div class="res__wrap">
+      <p class="demo-label">Demo: fiktives Hotel, keine Zahlung, nichts wird gesendet</p>
+      <h1 data-words>Deine Reservierung</h1>
+      <p class="res__lead" data-reveal>Wähle ein Zimmer, deine Reisedaten und die Zahl der Gäste. Am Ende bekommst du eine Referenz und eine Kalenderdatei.</p>
+
+      <div id="res-done" class="res__done" hidden tabindex="-1" aria-live="polite"></div>
+
+      <div class="res__grid" id="res-grid">
+        <form id="res-form" class="res__card" novalidate>
+          <h2>1. Zimmer und Gäste</h2>
+          <div class="res__field">
+            <label for="res-room">Zimmer</label>
+            <select id="res-room" name="room"></select>
+            <p class="res__hint" id="res-room-blurb"></p>
+          </div>
+          <div class="res__field">
+            <label for="res-guests">Gäste</label>
+            <select id="res-guests" name="guests"></select>
+          </div>
+
+          <h2>2. Reisedaten</h2>
+          <p class="res__hint" id="res-cal-hint">Wähle zuerst den Anreisetag, dann den Abreisetag. Gebuchte Tage sind gesperrt.</p>
+          <div id="res-cal" class="res__cal"></div>
+          <p class="res__error" id="res-dates-err" role="alert"></p>
+
+          <h2>3. Deine Angaben</h2>
+          <div class="res__field">
+            <label for="res-name">Name</label>
+            <input id="res-name" name="name" autocomplete="name" required maxlength="80">
+            <p class="res__error" id="res-name-err" role="alert"></p>
+          </div>
+          <div class="res__field">
+            <label for="res-email">E-Mail</label>
+            <input id="res-email" name="email" type="email" autocomplete="email" required maxlength="120">
+            <p class="res__error" id="res-email-err" role="alert"></p>
+          </div>
+          <div class="res__field">
+            <label for="res-note">Wünsche oder Hinweise (optional)</label>
+            <textarea id="res-note" name="note" rows="3" maxlength="300"></textarea>
+          </div>
+          <button type="submit" class="res__btn" id="res-submit">Demo-Reservierung anlegen</button>
+          <p class="res__hint">Es wird nichts bezahlt und nichts gesendet. Deine Reservierung bleibt nur in diesem Browser gespeichert.</p>
+        </form>
+
+        <aside class="res__card res__summary" aria-labelledby="res-sum-h">
+          <h2 id="res-sum-h">Deine Übersicht</h2>
+          <dl class="res__sum" id="res-sum"></dl>
+          <p class="res__error" id="res-sum-err" role="alert"></p>
+          <p class="res__hint">Alle Preise sind erfunden und gelten nur in dieser Demo.</p>
+          <a href="meine-reservierungen.html">Meine Reservierungen</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
