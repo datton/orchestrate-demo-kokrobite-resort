@@ -1,0 +1,30 @@
+/* anreise.css (Senior Dev 5): arrival and safety page. Tokens with fallbacks. */
+.an-hero { padding-block: clamp(6rem, 14vw, 11rem) clamp(3rem, 6vw, 5rem); background: linear-gradient(135deg, var(--accent-soft, #ffe8d6), var(--bg, #fff) 60%); }
+.an-hero h1 { font-family: var(--font-display, inherit); font-size: var(--fs-h1, clamp(2.75rem, 1.4rem + 6vw, 7rem)); letter-spacing: -.035em; line-height: 1.02; max-width: 16ch; margin: 0 0 1.5rem; text-wrap: balance; }
+.an-eyebrow { font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: .85rem; color: var(--accent-strong, var(--accent, #b3361f)); margin: 0 0 1rem; }
+.an-lead { font-size: var(--fs-lg, 1.3rem); max-width: 60ch; }
+.an-chips { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+.an-chips a { padding: .55rem 1.1rem; border-radius: 999px; background: var(--surface, #fff); border: 2px solid var(--accent, #b3361f); text-decoration: none; font-weight: 600; transition: transform .3s cubic-bezier(.2,.7,.2,1), background .3s; }
+.an-chips a:hover { transform: translateY(-2px); background: var(--accent-soft, #ffe8d6); }
+.an-sec h2 { font-family: var(--font-display, inherit); font-size: var(--fs-h2, clamp(2rem, 1.2rem + 3.6vw, 4.25rem)); letter-spacing: -.03em; line-height: 1.05; margin: 0 0 2rem; max-width: 18ch; text-wrap: balance; }
+.an-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.25rem; }
+.an-card { background: var(--surface, #fff); border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 8px 28px rgba(0,0,0,.08); border-top: 6px solid var(--accent, #b3361f); }
+.an-card:nth-child(3n+2) { border-top-color: var(--accent-2, var(--success, #1c6b4a)); }
+.an-card:nth-child(3n) { border-top-color: var(--accent-3, #d99a00); }
+.an-card h3 { margin: 0 0 .5rem; font-size: 1.35rem; }
+.an-card p { margin: 0 0 .75rem; }
+.an-source { margin-top: 2rem; font-size: .95rem; max-width: 65ch; color: var(--text-muted, inherit); }
+.an-big { font-size: var(--fs-step, clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem)); max-width: 28ch; line-height: 1.2; margin: 0 0 2rem; }
+.an-steps { max-width: 65ch; padding-left: 1.4rem; font-size: var(--fs-base, 1.0625rem); }
+.an-steps li, .an-list li { margin-bottom: 1rem; }
+.an-steps li::marker { color: var(--accent-on-dark, #ff9a82); font-weight: 700; }
+.an-list { max-width: 65ch; padding-left: 1.2rem; }
+.an-checks { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: .6rem; max-width: 40rem; }
+.an-checks label { display: flex; gap: .85rem; align-items: flex-start; padding: .85rem 1rem; background: var(--surface, #fff); border: 2px solid var(--line, #ddd); border-radius: 1rem; cursor: pointer; transition: border-color .2s, background .2s; }
+.an-checks label:hover { border-color: var(--accent, #b3361f); }
+.an-checks input { width: 1.4rem; height: 1.4rem; flex: none; margin-top: .1rem; accent-color: var(--accent, #b3361f); }
+.an-checks label:has(input:checked) { background: var(--accent-soft, #ffe8d6); text-decoration: line-through; text-decoration-color: rgba(0,0,0,.35); }
+.an-progress { font-weight: 700; font-size: 1.15rem; }
+.an-reset { padding: .7rem 1.4rem; border-radius: 999px; border: 2px solid currentColor; background: transparent; color: inherit; font: inherit; font-weight: 600; cursor: pointer; }
+.an-end { padding-block: 3rem; }
+@media (prefers-reduced-motion: reduce) { .an-chips a, .an-checks label { transition: none; } }
