@@ -76,7 +76,7 @@
       notes(d).forEach(function (n) { lines.push('  Hinweis: ' + n); });
       lines.push('');
     });
-    lines.push('Gespeichert nur in diesem Browser. Nichts gesendet, nichts gebucht. Angebote eines fiktiven Hotels.');
+    lines.push('Gespeichert nur in diesem Browser. Der Planer sendet und bucht nichts. Angebote eines fiktiven Hotels.');
     return lines.join('\n');
   }
 
