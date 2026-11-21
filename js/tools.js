@@ -25,11 +25,19 @@
     var list = read();
     var r = {
       ref: newRef(list), room: res.room, in: res.in, out: res.out, guests: res.guests, nights: res.nights, total: res.total,
-      name: res.name, email: res.email, note: res.note || '', created: new Date().toISOString()
+      name: res.name, email: res.email, note: res.note || '', created: new Date().toISOString(),
+      pay: res.pay || 'offen', orderToken: res.orderToken || null, paid: res.paid || 0
     };
     list.unshift(r); write(list);
     return r;
   }
+  function update(ref, patch) {
+    var list = read(), hit = null;
+    list.forEach(function (r) { if (r.ref === ref) { Object.keys(patch).forEach(function (k) { r[k] = patch[k]; }); hit = r; } });
+    if (hit) write(list);
+    return hit;
+  }
+  function byOrder(token) { return read().filter(function (r) { return r.orderToken === token; })[0] || null; }
   function remove(ref) { var list = read().filter(function (r) { return r.ref !== ref; }); write(list); return list; }
 
   // iCalendar text: escape \ ; , and newlines; CRLF line ends; DTEND is exclusive (the check-out day).
@@ -64,7 +72,7 @@
     setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   }
 
-  window.KR_RES = { list: read, add: add, remove: remove, ics: ics, download: downloadIcs };
+  window.KR_RES = { list: read, add: add, update: update, byOrder: byOrder, remove: remove, ics: ics, download: downloadIcs };
 
   /* ---- the reservation page ---- */
   var $ = function (id) { return document.getElementById(id); };
@@ -98,16 +106,17 @@
       st.range = null;
     }
 
-    function summary() {
+    function summary(keep) {
       var r = room(), rows = [];
       $('res-room-blurb').textContent = r.blurb || '';
-      $('res-sum-err').textContent = ''; st.quote = null;
+      if (!keep) { $('res-sum-err').textContent = ''; st.quote = null; }
       rows.push(['Zimmer', h(r.name || '')]);
       rows.push(['Gäste', guestSel.value]);
       if (st.range) {
         rows.push(['Anreise', date(st.range.in)]);
         rows.push(['Abreise', date(st.range.out)]);
         var qt = window.KR_DATA && KR_DATA.quote ? KR_DATA.quote(st.room, st.range.in, st.range.out, +guestSel.value) : null;
+        if (keep && st.quote) qt = st.quote;
         if (qt && qt.ok) {
           st.quote = qt;
           rows.push(['Dauer', nightsTxt(qt.nights)]);
@@ -134,23 +143,52 @@
       return ok;
     }
 
+    var busy = false, btn = $('res-submit');
+    function fail(msg) { $('res-sum-err').textContent = msg; busy = false; btn.disabled = false; btn.textContent = 'Weiter zur Testzahlung'; }
+
     $('res-form').addEventListener('submit', function (e) {
       e.preventDefault();
-      if (!validate()) return;
-      var res = add({ room: st.room, in: st.range.in, out: st.range.out, guests: +guestSel.value, nights: st.quote.nights, total: st.quote.total,
-        name: $('res-name').value.trim(), email: $('res-email').value.trim(), note: $('res-note').value.trim() });
-      var done = $('res-done');
-      done.innerHTML = '<h2>Danke, ' + h(res.name.split(' ')[0]) + '! Deine Demo-Reservierung steht.</h2>' +
-        '<p class="res__ref">Referenz <strong>' + h(res.ref) + '</strong></p>' +
-        '<p>' + h(room().name || '') + ', ' + date(res.in) + ' bis ' + date(res.out) + ' (' + nightsTxt(res.nights) + '), ' + res.guests + (res.guests === 1 ? ' Gast' : ' Gäste') + ', ' + money(res.total) + '.</p>' +
-        '<p class="res__hint">Es wurde nichts bezahlt und nichts gesendet. Die Reservierung liegt nur in diesem Browser.</p>' +
-        '<p class="res__actions"><button type="button" class="res__btn" id="res-ics">Kalenderdatei (.ics) laden</button> ' +
-        '<a class="res__btn res__btn--ghost" href="meine-reservierungen.html">Meine Reservierungen</a> ' +
-        '<button type="button" class="res__btn res__btn--ghost" id="res-again">Noch eine Reservierung</button></p>';
-      done.hidden = false; $('res-grid').hidden = true; done.focus();
-      $('res-ics').addEventListener('click', function () { downloadIcs(res); });
-      $('res-again').addEventListener('click', function () { done.hidden = true; $('res-grid').hidden = false; $('res-form').reset(); guestsFill(1); mountCal(); summary(); roomSel.focus(); });
+      if (busy || !validate()) return;
+      if (!window.KR_SHOP) { fail('Der Zahlungsdienst ist gerade nicht erreichbar. Bitte lade die Seite neu.'); return; }
+      busy = true; btn.disabled = true; btn.textContent = 'Einen Moment …'; $('res-sum-err').textContent = '';
+      var name = $('res-name').value.trim(), cust = KR_SHOP.customerId();
+      var probe = [KR_SHOP.line(st.room, st.quote.nights, '')];
+      // 1. The service prices the stay; the guest pays what the service says.
+      KR_SHOP.api('quote', { items: probe, customer: cust }).then(function (qt) {
+        var cents = qt.total;
+        if (Math.round(st.quote.total * 100) !== cents) {
+          st.quote.total = cents / 100; summary(true);
+          $('res-sum-err').textContent = 'Der Zahlungsdienst hat den Preis bestätigt: ' + KR_SHOP.money(cents) + '. Bitte prüfe ihn und klicke noch einmal auf „Weiter zur Testzahlung“.';
+          busy = false; btn.disabled = false; btn.textContent = 'Weiter zur Testzahlung';
+          return null;
+        }
+        // 2. Save the reservation as open, then create the order and go to the test payment.
+        var res = add({ room: st.room, in: st.range.in, out: st.range.out, guests: +guestSel.value, nights: st.quote.nights, total: st.quote.total,
+          name: name, email: $('res-email').value.trim(), note: $('res-note').value.trim(), pay: 'offen' });
+        var note = [res.ref, res.in, res.out, res.guests, name.slice(0, 40).replace(/\|/g, ' ')].join('|');
+        return KR_SHOP.api('orders', { items: [KR_SHOP.line(st.room, st.quote.nights, note)], store: '', name: name, note: note, customer: cust }).then(function (r) {
+          KR_SHOP.addOrder(r.order.token);
+          update(res.ref, { orderToken: r.order.token });
+          if (r.pay && r.pay.url) location.href = r.pay.url;
+          else location.href = new URL('order.html?o=' + encodeURIComponent(r.order.token), location.href).href;
+        }, function (err) { remove(res.ref); throw err; });
+      }).catch(function (err) { fail(err.message || 'Etwas ist schiefgelaufen. Bitte versuche es noch einmal.'); });
     });
+
+    // Back from a cancelled test payment: say so, keep the form, fill it from the open reservation.
+    var cancelled = q.get('cancelled');
+    if (cancelled) {
+      var old = byOrder(cancelled);
+      $('res-banner').textContent = 'Die Zahlung wurde abgebrochen. Deine Reservierung ist noch offen.';
+      if (old) {
+        update(old.ref, { pay: 'abgebrochen' });
+        q.set('room', old.room); q.set('in', old.in); q.set('out', old.out); q.set('guests', old.guests);
+        st.room = old.room; roomSel.value = old.room;
+        $('res-name').value = old.name; $('res-email').value = old.email; $('res-note').value = old.note || '';
+      }
+      if (window.KR_SHOP) KR_SHOP.api('orders/' + encodeURIComponent(cancelled) + '/cancel', {}).catch(function () {});
+      history.replaceState(null, '', location.pathname);
+    }
 
     guestsFill(q.get('guests'));
     mountCal();

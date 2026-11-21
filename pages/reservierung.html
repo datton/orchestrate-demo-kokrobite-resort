@@ -17,16 +17,18 @@
 <script src="../js/de.js" defer></script>
 <script src="../js/resort-data.js" defer></script>
 <script src="../js/calendar.js" defer></script>
+<script src="../js/shop/core.js" defer></script>
 <script src="../js/tools.js" defer></script>
 </head>
 <body>
 <main id="main">
   <section class="band res">
     <div class="res__wrap">
-      <p class="demo-label">Demo: fiktives Hotel, keine Zahlung, nichts wird gesendet</p>
+      <p class="demo-label">Demo: fiktives Hotel, nur Testzahlung, kein echtes Geld</p>
       <h1 data-words>Deine Reservierung</h1>
-      <p class="res__lead" data-reveal>Wähle ein Zimmer, deine Reisedaten und die Zahl der Gäste. Am Ende bekommst du eine Referenz und eine Kalenderdatei.</p>
+      <p class="res__lead" data-reveal>Wähle ein Zimmer, deine Reisedaten und die Zahl der Gäste. Bezahlt wird mit einer Testzahlung, danach bekommst du deine Bestätigung.</p>
 
+      <p id="res-banner" class="res__banner" role="status" aria-live="polite"></p>
       <div id="res-done" class="res__done" hidden tabindex="-1" aria-live="polite"></div>
 
       <div class="res__grid" id="res-grid">
@@ -62,15 +64,16 @@
             <label for="res-note">Wünsche oder Hinweise (optional)</label>
             <textarea id="res-note" name="note" rows="3" maxlength="300"></textarea>
           </div>
-          <button type="submit" class="res__btn" id="res-submit">Demo-Reservierung anlegen</button>
-          <p class="res__hint">Es wird nichts bezahlt und nichts gesendet. Deine Reservierung bleibt nur in diesem Browser gespeichert.</p>
+          <button type="submit" class="res__btn" id="res-submit">Weiter zur Testzahlung</button>
+          <p class="shop-testlabel res__test" id="res-test">Demo: nur Testzahlung, kein echtes Geld. Teste mit der Karte 4242 4242 4242 4242.</p>
+          <p class="res__hint">Es bewegt sich kein echtes Geld, und es wird keine E-Mail gesendet. Deine Reservierung bleibt in diesem Browser gespeichert.</p>
         </form>
 
         <aside class="res__card res__summary" aria-labelledby="res-sum-h">
           <h2 id="res-sum-h">Deine Übersicht</h2>
           <dl class="res__sum" id="res-sum"></dl>
           <p class="res__error" id="res-sum-err" role="alert"></p>
-          <p class="res__hint">Alle Preise sind erfunden und gelten nur in dieser Demo.</p>
+          <p class="res__hint">Alle Preise sind erfunden. Demo: nur Testzahlung, kein echtes Geld.</p>
           <a href="meine-reservierungen.html">Meine Reservierungen</a>
         </aside>
       </div>
