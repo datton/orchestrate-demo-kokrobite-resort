@@ -5,7 +5,7 @@
    availability is always relative to today. From 7 nights the stay is 10 % cheaper (whole euros). */
 (function () {
   'use strict';
-  var DAY = 86400000, MAX_NIGHTS = 30, DISCOUNT_FROM = 7, DISCOUNT_PCT = 10;
+  var DAY = 86400000, MAX_NIGHTS = 20, DISCOUNT_FROM = 7, DISCOUNT_PCT = 10;
 
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function iso(ms) { var d = new Date(ms); return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()); }
